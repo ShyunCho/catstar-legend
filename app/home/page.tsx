@@ -9,6 +9,11 @@ const quests = [
   "Workout",
   "Dance practice",
   "Eat healthy",
+  "Stretch",
+  "Plan tomorrow",
+  "Read 10 pages",
+  "Practice coding",
+  "Drink enough water",
 ];
 
 type GameData = {
@@ -44,9 +49,9 @@ export default function HomePage() {
   const [gameData, setGameData] = useState<GameData | null>(null);
   const [xpToast, setXpToast] = useState<{
     value: string;
-    visible: boolean;
     type: "gain" | "loss";
   } | null>(null);
+  const [levelToast, setLevelToast] = useState<string | null>(null);
 
   useEffect(() => {
     const savedData = localStorage.getItem("catstar-legend-save");
@@ -66,15 +71,19 @@ export default function HomePage() {
   }, []);
 
   const showXpToast = (value: string, type: "gain" | "loss") => {
-    setXpToast({
-      value,
-      visible: true,
-      type,
-    });
+    setXpToast({ value, type });
 
     setTimeout(() => {
       setXpToast(null);
     }, 900);
+  };
+
+  const showLevelToast = (level: number) => {
+    setLevelToast(`Level Up! Lv.${level}`);
+
+    setTimeout(() => {
+      setLevelToast(null);
+    }, 1400);
   };
 
   const handleQuestToggle = (quest: string) => {
@@ -97,8 +106,13 @@ export default function HomePage() {
       showXpToast("+10 XP", "gain");
     }
 
+    const previousLevel = gameData.level;
     const updatedLevel = getLevelFromXp(updatedXp);
     const updatedStage = getStageFromLevel(updatedLevel);
+
+    if (updatedLevel > previousLevel) {
+      showLevelToast(updatedLevel);
+    }
 
     const updatedGameData: GameData = {
       ...gameData,
@@ -136,9 +150,15 @@ export default function HomePage() {
         </div>
 
         <section className="relative rounded-[32px] border border-white/60 bg-white/80 p-8 shadow-xl backdrop-blur">
+          {levelToast && (
+            <div className="pointer-events-none absolute left-1/2 top-4 -translate-x-1/2 rounded-full bg-amber-100 px-4 py-2 text-sm font-black text-amber-700 shadow animate-bounce">
+              {levelToast}
+            </div>
+          )}
+
           {xpToast && (
             <div
-              className={`pointer-events-none absolute left-1/2 top-6 -translate-x-1/2 animate-bounce text-lg font-black ${
+              className={`pointer-events-none absolute left-1/2 top-16 -translate-x-1/2 animate-bounce text-lg font-black ${
                 xpToast.type === "gain" ? "text-rose-500" : "text-sky-500"
               }`}
             >
