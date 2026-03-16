@@ -1,7 +1,6 @@
 # Catstar Legend
 > Pixel RPG-style self-growth web app where real-life actions level up an idol cat
-![demo](./public/demo.gif)
-> 
+
 <p align="center">
   <img src="./public/idol.png" width="200" alt="Catstar Legend preview"/>
 </p>
