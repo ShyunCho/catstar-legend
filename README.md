@@ -1,83 +1,84 @@
-# Catstar Legend
+# 🐱 Catstar Legend
+> Pixel RPG-style self-growth web app where real-life actions level up an idol cat
 
-![catstar legend](./public/idol.png)
+<p align="center">
+  <img src="./public/idol.png" width="200" alt="Catstar Legend preview"/>
+</p>
 
-A pixel RPG self-growth web app where real-life actions level up your idol cat.
+Catstar Legend is a small RPG-inspired self-growth web app where real-life actions help your cat grow and level up.
 
-Instead of traditional productivity apps, Catstar Legend turns your daily life into a game.  
-Complete real-life quests like studying, working out, or practicing skills to help your cat become a legendary idol star.
+Instead of using a traditional productivity tracker, the app turns everyday habits and personal goals into a simple RPG-style progression system.
 
 ---
 
-## 🎮 Concept
+## Concept
 
-Catstar Legend is a **life RPG**.
+Catstar Legend treats everyday actions like in-game quests.
 
-You complete real-life actions →  
-Your cat gains experience →  
-Your cat evolves into a legendary idol.
+When you complete real-life activities such as studying, exercising, or practicing a skill, your cat gains experience and progresses.
 
 Example quests:
 
-- Study 30 minutes
-- Solve a SQL problem
-- Workout
-- Dance practice
-- Eat healthy
+- Study for 30 minutes  
+- Solve a SQL problem  
+- Workout  
+- Practice dance  
+- Eat healthy  
 
-Every completed quest helps your cat grow stronger.
-
----
-
-## ✨ Features
-
-- 🐱 Custom cat name
-- 📈 Level system
-- 📝 Daily quests
-- 💾 Save cat progress
-- 🎮 RPG-style UI
-- 🌱 Self-growth gamification
-
-Upcoming features:
-
-- Cat evolution system
-- Quest rewards
-- Item inventory
-- Pixel animations
-- Boss battles
+Each completed quest contributes to your cat’s growth.
 
 ---
 
-## 🛠 Tech Stack
+## Features
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
+Current features
+
+- Custom cat name  
+- Basic leveling system  
+- Daily quest list  
+- Local progress saving  
+- RPG-style UI  
+
+Planned features
+
+- Cat evolution stages  
+- Quest rewards  
+- Item inventory  
+- Pixel animations  
+- Boss battles  
 
 ---
 
-## 🚀 Getting Started
+## Tech Stack
 
-Run the development server:
+- Next.js  
+- React  
+- TypeScript  
+- Tailwind CSS  
+
+---
+
+## Roadmap
+
+Planned improvements
+
+- Daily quest tracking  
+- XP and leveling mechanics  
+- Cat evolution stages  
+- Local storage persistence  
+- Pixel animation improvements  
+- Mobile UI optimization  
+
+---
+
+## Getting Started
+
+Install dependencies and start the development server.
+
+Open the app in your browser:
+
+http://localhost:3000
 
 ```bash
 npm install
 npm run dev
-
-Open
-http://localhost:3000
-to see the app.
-📅 Roadmap
-Planned features:
-Daily quest tracking
-XP and leveling system
-Cat evolution stages
-Save progress in local storage
-Pixel art animation
-Mobile UI optimization
-💡 Vision
-Catstar Legend aims to make self improvement feel like playing an RPG.
-Level up your life.
-Raise your idol cat.
-Become legendary.
