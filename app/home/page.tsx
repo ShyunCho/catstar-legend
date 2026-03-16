@@ -17,12 +17,27 @@ type GameData = {
   level: number;
   xp: number;
   stage: string;
+  completedQuests: string[];
 };
 
 const catEmojiMap: Record<GameData["catType"], string> = {
   white: "🤍",
   black: "🖤",
   orange: "🧡",
+};
+
+const getLevelFromXp = (xp: number) => {
+  return Math.floor(xp / 100) + 1;
+};
+
+const getStageFromLevel = (level: number) => {
+  if (level >= 50) return "Legendary Idol Cat";
+  if (level >= 30) return "Superstar Cat";
+  if (level >= 20) return "Rising Star Cat";
+  if (level >= 15) return "Rookie Idol Cat";
+  if (level >= 10) return "Pre-Debut Cat";
+  if (level >= 5) return "Idol Trainee";
+  return "Kitten Trainee";
 };
 
 export default function HomePage() {
@@ -34,18 +49,60 @@ export default function HomePage() {
     if (!savedData) return;
 
     try {
-      const parsedData: GameData = JSON.parse(savedData);
-      setGameData(parsedData);
+      const parsedData = JSON.parse(savedData);
+
+      setGameData({
+        ...parsedData,
+        completedQuests: parsedData.completedQuests ?? [],
+      });
     } catch (error) {
       console.error("Failed to parse saved game data:", error);
     }
   }, []);
+
+  const handleQuestToggle = (quest: string) => {
+    if (!gameData) return;
+
+    const isCompleted = gameData.completedQuests.includes(quest);
+
+    let updatedCompletedQuests: string[];
+    let updatedXp: number;
+
+    if (isCompleted) {
+      updatedCompletedQuests = gameData.completedQuests.filter(
+        (completedQuest) => completedQuest !== quest
+      );
+      updatedXp = Math.max(gameData.xp - 10, 0);
+    } else {
+      updatedCompletedQuests = [...gameData.completedQuests, quest];
+      updatedXp = gameData.xp + 10;
+    }
+
+    const updatedLevel = getLevelFromXp(updatedXp);
+    const updatedStage = getStageFromLevel(updatedLevel);
+
+    const updatedGameData: GameData = {
+      ...gameData,
+      xp: updatedXp,
+      level: updatedLevel,
+      stage: updatedStage,
+      completedQuests: updatedCompletedQuests,
+    };
+
+    setGameData(updatedGameData);
+    localStorage.setItem(
+      "catstar-legend-save",
+      JSON.stringify(updatedGameData)
+    );
+  };
 
   const catEmoji = gameData ? catEmojiMap[gameData.catType] : "🐱";
   const catName = gameData?.name ?? "Luna";
   const level = gameData?.level ?? 1;
   const xp = gameData?.xp ?? 0;
   const stage = gameData?.stage ?? "Kitten Trainee";
+  const completedQuests = gameData?.completedQuests ?? [];
+  const currentXp = xp % 100;
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-pink-50 via-rose-50 to-amber-50 px-6 py-8">
@@ -74,13 +131,13 @@ export default function HomePage() {
             <div className="mt-6">
               <div className="mb-2 flex justify-between text-sm font-medium text-zinc-600">
                 <span>XP</span>
-                <span>{xp} / 100</span>
+                <span>{currentXp} / 100</span>
               </div>
 
               <div className="h-4 rounded-full bg-zinc-200">
                 <div
-                  className="h-4 rounded-full bg-rose-400 transition-all"
-                  style={{ width: `${Math.min(xp, 100)}%` }}
+                  className="h-4 rounded-full bg-rose-400 transition-all duration-300"
+                  style={{ width: `${currentXp}%` }}
                 />
               </div>
             </div>
@@ -91,17 +148,36 @@ export default function HomePage() {
           <h2 className="text-xl font-black text-zinc-900">Today’s Training</h2>
 
           <div className="mt-5 space-y-3">
-            {quests.map((quest) => (
-              <label
-                key={quest}
-                className="flex items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-4"
-              >
-                <input type="checkbox" className="h-4 w-4" />
-                <span className="text-sm font-medium text-zinc-800">
-                  {quest}
-                </span>
-              </label>
-            ))}
+            {quests.map((quest) => {
+              const isCompleted = completedQuests.includes(quest);
+
+              return (
+                <label
+                  key={quest}
+                  className={`flex items-center gap-3 rounded-2xl border px-4 py-4 transition ${
+                    isCompleted
+                      ? "border-rose-200 bg-rose-50"
+                      : "border-zinc-200 bg-zinc-50"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4"
+                    checked={isCompleted}
+                    onChange={() => handleQuestToggle(quest)}
+                  />
+                  <span
+                    className={`text-sm font-medium ${
+                      isCompleted
+                        ? "text-zinc-500 line-through"
+                        : "text-zinc-800"
+                    }`}
+                  >
+                    {quest}
+                  </span>
+                </label>
+              );
+            })}
           </div>
         </section>
       </div>
