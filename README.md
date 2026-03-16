@@ -1,6 +1,6 @@
 # Catstar Legend
 
-
+![catstar legend](./public/screenshot.png)
 
 A pixel RPG self-growth web app where real-life actions level up your idol cat.
 
