@@ -82,3 +82,6 @@ http://localhost:3000
 ```bash
 npm install
 npm run dev
+'''
+
+Then open the app in your browser at [http://localhost:3000](http://localhost:3000).
