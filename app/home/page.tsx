@@ -42,6 +42,11 @@ const getStageFromLevel = (level: number) => {
 
 export default function HomePage() {
   const [gameData, setGameData] = useState<GameData | null>(null);
+  const [xpToast, setXpToast] = useState<{
+    value: string;
+    visible: boolean;
+    type: "gain" | "loss";
+  } | null>(null);
 
   useEffect(() => {
     const savedData = localStorage.getItem("catstar-legend-save");
@@ -60,6 +65,18 @@ export default function HomePage() {
     }
   }, []);
 
+  const showXpToast = (value: string, type: "gain" | "loss") => {
+    setXpToast({
+      value,
+      visible: true,
+      type,
+    });
+
+    setTimeout(() => {
+      setXpToast(null);
+    }, 900);
+  };
+
   const handleQuestToggle = (quest: string) => {
     if (!gameData) return;
 
@@ -73,9 +90,11 @@ export default function HomePage() {
         (completedQuest) => completedQuest !== quest
       );
       updatedXp = Math.max(gameData.xp - 10, 0);
+      showXpToast("-10 XP", "loss");
     } else {
       updatedCompletedQuests = [...gameData.completedQuests, quest];
       updatedXp = gameData.xp + 10;
+      showXpToast("+10 XP", "gain");
     }
 
     const updatedLevel = getLevelFromXp(updatedXp);
@@ -116,7 +135,17 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <section className="rounded-[32px] border border-white/60 bg-white/80 p-8 shadow-xl backdrop-blur">
+        <section className="relative rounded-[32px] border border-white/60 bg-white/80 p-8 shadow-xl backdrop-blur">
+          {xpToast && (
+            <div
+              className={`pointer-events-none absolute left-1/2 top-6 -translate-x-1/2 animate-bounce text-lg font-black ${
+                xpToast.type === "gain" ? "text-rose-500" : "text-sky-500"
+              }`}
+            >
+              {xpToast.value}
+            </div>
+          )}
+
           <div className="text-center">
             <div className="text-7xl">{catEmoji}</div>
 
