@@ -1,4 +1,4 @@
-# 🐱 Catstar Legend
+# Catstar Legend
 > Pixel RPG-style self-growth web app where real-life actions level up an idol cat
 
 <p align="center">
