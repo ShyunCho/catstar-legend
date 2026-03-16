@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function StartPage() {
@@ -19,7 +20,16 @@ export default function StartPage() {
           </p>
 
           <div className="mt-8 rounded-[28px] bg-gradient-to-b from-rose-100 to-amber-100 p-8 shadow-inner">
-            <div className="text-7xl">🐱</div>
+            <div className="flex justify-center">
+              <Image
+                src="/cats/cat_idle.png"
+                alt="Catstar Legend pixel cat"
+                width={180}
+                height={180}
+                priority
+                className="h-auto w-auto pixelated"
+              />
+            </div>
           </div>
 
           <div className="mt-6">

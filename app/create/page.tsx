@@ -1,13 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const cats = [
-  { id: "white", name: "White Cat", emoji: "🤍" },
-  { id: "black", name: "Black Cat", emoji: "🖤" },
-  { id: "orange", name: "Orange Cat", emoji: "🧡" },
+  { id: "white", name: "White Cat", image: "/cats/cat_idle.png" },
+  { id: "black", name: "Black Cat", image: "/cats/cat_idle.png" },
+  { id: "orange", name: "Orange Cat", image: "/cats/cat_idle.png" },
 ];
 
 export default function CreatePage() {
@@ -30,6 +31,7 @@ export default function CreatePage() {
       level: 1,
       xp: 0,
       stage: "Kitten Trainee",
+      completedQuests: [],
     };
 
     localStorage.setItem("catstar-legend-save", JSON.stringify(gameData));
@@ -77,7 +79,15 @@ export default function CreatePage() {
                     : "border-zinc-200 bg-zinc-50"
                 }`}
               >
-                <div className="text-5xl">{cat.emoji}</div>
+                <div className="flex justify-center">
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    width={96}
+                    height={96}
+                    className="h-24 w-24 pixelated"
+                  />
+                </div>
                 <p className="mt-3 text-sm font-bold text-zinc-800">
                   {cat.name}
                 </p>
