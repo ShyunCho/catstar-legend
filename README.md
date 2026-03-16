@@ -83,3 +83,24 @@ npm run dev
 Then open the app in your browser:
 
 http://localhost:3000
+
+
+## XP & Level System
+
+Catstar Legend converts real-life actions into character growth.
+
+Players complete quests such as studying, exercising, or practicing dance to earn XP.
+
+Accumulated XP determines the player's level and growth stage.
+
+Growth stages:
+
+Baby Cat → Trainee → Rookie Idol → Rising Star → Catstar Legend
+
+Level progression unlocks:
+- outfits
+- backgrounds
+- titles
+- visual upgrades
+
+The level system acts as the core progression engine connecting all game systems.
