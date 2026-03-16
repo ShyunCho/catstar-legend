@@ -75,13 +75,14 @@ Planned improvements
 
 Install dependencies and start the development server.
 
-Open the app in your browser:
-
-http://localhost:3000
-
 ```bash
 npm install
 npm run dev
+```
+
+Then open the app in your browser:
+
+http://localhost:3000
 '''
 
 Then open the app in your browser at [http://localhost:3000](http://localhost:3000).
